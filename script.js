@@ -2,8 +2,8 @@ const image = document.querySelector('img');
 const title = document.getElementById('title');
 const artist = document.getElementById('artist');
 const music = document.querySelector('audio');
-// const currentTimeEl = document.getElementById('current-time');
-// const durationEl = document.getElementById('duration');
+const currentTimeEl = document.getElementById('current-time');
+const durationEl = document.getElementById('duration');
 const progress = document.getElementById('progress');
 const progressContainer = document.getElementById('progress-container');
 const prevBtn = document.getElementById('prev');
@@ -111,7 +111,7 @@ loadSong(songs[songIndex]);
 // Update Progress Bar & Time
 function updateProgressBar(e) {
     if (isPlaying) {
-        // console.log(e)
+      // console.log(e)
       const { duration, currentTime } = e.srcElement;
       // Update progress bar width
       const progressPercent = (currentTime / duration) * 100;
@@ -123,6 +123,7 @@ function updateProgressBar(e) {
         durationSeconds = `0${durationSeconds}`;
       }
       // Delay switching duration Element to avoid NaN
+      // ie. if we have durationSeconds then we display something!
       if (durationSeconds) {
         durationEl.textContent = `${durationMinutes}:${durationSeconds}`;
       }
@@ -138,10 +139,16 @@ function updateProgressBar(e) {
 
   // Set Progress Bar
   function setProgressBar(e) {
+    // console.log(e);
+    // this = element that received the event
     const width = this.clientWidth;
+    // console.log('width:', width)
     const clickX = e.offsetX;
+    // console.log('clickx:',clickX);
     const { duration } = music;
+    // console.log('clickx/width:',clickX/width)
     music.currentTime = (clickX / width) * duration;
+    // progressContainer.addEventListener('click', setProgressBar);
   }
 
 // Event Listeners
